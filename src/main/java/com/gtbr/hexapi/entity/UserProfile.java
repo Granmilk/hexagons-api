@@ -20,10 +20,10 @@ public class UserProfile {
     @Id
     @GeneratedValue(generator = "UUID generator")
     @GenericGenerator(name = "UUID generator", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column
+    @Column(name = "user_uuid", updatable = false)
     private UUID userUUID;
 
-    @Column
+    @Column(insertable = false)
     private Long shortId;
 
     @Column
@@ -35,16 +35,16 @@ public class UserProfile {
     @Column
     private String password;
 
-    @Column
+    @Column(insertable = false)
     @Enumerated(EnumType.STRING)
     private UserStatus userStatus;
 
     @Column
     private String deviceId;
 
-    @Column
+    @Column(insertable = false)
     private Long coin;
 
-    @Column
+    @Column(insertable = false)
     private LocalDateTime registeredAt;
 }

@@ -23,7 +23,7 @@ public class UserController {
         return ResponseEntity.ok(userProfileService.findAll());
     }
 
-    @GetMapping("/{userShortId}")
+    @GetMapping("/short/{userShortId}")
     public ResponseEntity<UserProfile> findUserByUserShortId(@PathVariable Integer userShortId) {
         return ResponseEntity.ok(userProfileService.findUserById(userShortId));
     }

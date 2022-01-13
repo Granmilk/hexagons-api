@@ -19,31 +19,31 @@ public class Match {
     @Id
     @GeneratedValue(generator = "UUID generator")
     @GenericGenerator(name = "UUID generator", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column
+    @Column(name = "match_uuid", updatable = false)
     private UUID matchUUID;
 
-    @Column
+    @Column(insertable = false)
     private Long matchShortId;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "user_profile_id")
     private UserProfile userProfile;
 
     @ManyToOne
-    @JoinColumn(name = "game_mode_ID")
+    @JoinColumn(name = "game_mode_id")
     private GameMode gameMode;
 
     @Column
     private Long score;
 
-    @Column
+    @Column(insertable = false)
     private LocalDateTime at;
 
     @Column
     private Long coin;
 
     @Column
-    private Integer dificulty;
+    private Integer difficulty;
 
     @Column
     private Boolean watchedAd;

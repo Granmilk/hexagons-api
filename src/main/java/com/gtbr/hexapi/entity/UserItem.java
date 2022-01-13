@@ -19,11 +19,11 @@ public class UserItem {
     private Long id;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "user_profile_id")
     private UserProfile userProfile;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "item_id")
     private Item item;
 
     @Column

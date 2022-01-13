@@ -21,9 +21,9 @@ public class Version {
     @Column
     private String placeholder;
 
-    @Column
+    @Column(insertable = false)
     private LocalDateTime launchedAt;
 
-    @Column
+    @Column(insertable = false)
     private LocalDateTime endedAt;
 }

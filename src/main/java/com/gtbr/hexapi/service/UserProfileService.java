@@ -1,17 +1,16 @@
 package com.gtbr.hexapi.service;
 
 import com.gtbr.hexapi.entity.UserProfile;
+import com.gtbr.hexapi.entity.enums.UserStatus;
 import com.gtbr.hexapi.exception.ObjectNotFoundException;
 import com.gtbr.hexapi.record.UserProfileRecord;
 import com.gtbr.hexapi.repository.UserProfileRepository;
 import com.gtbr.hexapi.util.QueryUtils;
-import com.gtbr.hexapi.util.StringUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -42,12 +41,14 @@ public class UserProfileService {
     }
 
     public UserProfile createUser(UserProfileRecord userProfileRecord) {
-        return userProfileRepository.save(UserProfile.builder()
+        UserProfile user = userProfileRepository.save(UserProfile.builder()
                 .email(userProfileRecord.email())
                 .name(userProfileRecord.name())
                 .password(bCryptPasswordEncoder.encode(userProfileRecord.password()))
                 .deviceId(userProfileRecord.deviceId())
                 .build());
+
+        return findUserById(user.getUserUUID());
     }
 
     public UserProfile updateUser(UUID userUUID, UserProfileRecord userProfileRecord) {
@@ -75,6 +76,9 @@ public class UserProfileService {
     }
 
     public UserProfile disableUser(UUID userUUID) {
-        return null;
+        UserProfile user = findUserById(userUUID);
+
+        user.setUserStatus(UserStatus.DISABLED);
+        return userProfileRepository.save(user);
     }
 }
