@@ -81,4 +81,11 @@ public class UserProfileService {
         user.setUserStatus(UserStatus.DISABLED);
         return userProfileRepository.save(user);
     }
+
+    public void addCoins(UUID userId, Long coins) {
+        UserProfile user = findUserById(userId);
+        user.setCoin(user.getCoin() + coins);
+
+        userProfileRepository.save(user);
+    }
 }

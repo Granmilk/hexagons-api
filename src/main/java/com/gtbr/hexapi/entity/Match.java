@@ -37,10 +37,13 @@ public class Match {
     private Long score;
 
     @Column(insertable = false)
-    private LocalDateTime at;
+    private LocalDateTime registeredAt;
 
     @Column
     private Long coin;
+
+    @Column
+    private Integer lifeTaken;
 
     @Column
     private Integer difficulty;

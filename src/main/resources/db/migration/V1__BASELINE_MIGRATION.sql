@@ -30,19 +30,20 @@ create table game_mode
             primary key
 );
 
-INSERT INTO public.game_mode (name) VALUES ('Classic');
-INSERT INTO public.game_mode (name) VALUES ('Arcade');
+INSERT INTO public.game_mode (name) VALUES ('CLASSIC');
+INSERT INTO public.game_mode (name) VALUES ('ARCADE');
 
 create table if not exists match
 (
     match_uuid      uuid not null
         constraint match_pkey
             primary key,
-    at              timestamp default now(),
+    registered_at              timestamp default now(),
     coin            bigint,
     difficulty      integer,
     match_short_id  bigint    default nextval('seq_match_short_id'::regclass),
     score           bigint,
+    life_taken      bigint,
     watched_ad      boolean,
     game_mode_id    varchar(255)
         constraint game_mode_fk
