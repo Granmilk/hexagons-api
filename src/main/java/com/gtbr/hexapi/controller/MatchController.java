@@ -38,8 +38,9 @@ public class MatchController {
     @GetMapping("/{userId}")
     public ResponseEntity<List<Match>> findMatchByUser(@PathVariable UUID userId,
                                                        @RequestParam Integer page,
-                                                       @RequestParam Integer pageSize) {
-        return ResponseEntity.ok(matchService.findByUserId(userId, page, pageSize));
+                                                       @RequestParam Integer pageSize,
+                                                       @RequestParam String mode) {
+        return ResponseEntity.ok(matchService.findByUserId(userId, mode, page, pageSize));
     }
 
     @PostMapping

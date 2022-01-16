@@ -12,7 +12,7 @@ public interface MatchRepository extends CrudRepository<Match, UUID> {
 
     @Query("select m from Match m where m.userProfile.userUUID = :userId " +
             "and m.gameMode.name = :gameMode order by m.registeredAt DESC")
-    List<Match> findByUserId(UUID userId, Pageable pageable);
+    List<Match> findByUserId(UUID userId, String gameMode, Pageable pageable);
 
     @Query("select m from Match m where " +
             "m.gameMode.name = :gameMode order by m.score DESC")

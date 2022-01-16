@@ -29,12 +29,12 @@ public class MatchService {
         });
     }
 
-    public List<Match> findByUserId(UUID userId, Integer page, Integer pageSize) {
-        return matchRepository.findByUserId(userId, PageRequest.of(page, pageSize));
+    public List<Match> findByUserId(UUID userId, String gamemode, Integer page, Integer pageSize) {
+        return matchRepository.findByUserId(userId, gamemode, PageRequest.of(page, pageSize));
     }
 
     public Match registerMatch(MatchRecord matchRecord) {
-        if (!matchRecord.isValid()) throw new InvalidMatchException();
+        if (Boolean.FALSE.equals(matchRecord.isValid())) throw new InvalidMatchException();
         Match match = matchRepository.save(matchRecord.toCreateEntity());
         userProfileService.addCoins(matchRecord.userProfile().getUserUUID(), Boolean.TRUE.equals(match.getWatchedAd()) ? match.getCoin() * 2 : match.getCoin());
         return match;
@@ -43,7 +43,7 @@ public class MatchService {
     public List<MatchScoreBoardRecord> findMatchList(String gameMode, Integer size) {
         return matchRepository.findByGameModeOrderByScore(gameMode, Pageable.ofSize(size)).stream()
                 .map(MatchScoreBoardRecord::from)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public Match watchedAd(UUID userId) {
