@@ -47,6 +47,7 @@ public class MatchService {
     public List<MatchScoreBoardRecord> findMatchList(String gameMode, Integer size) {
         return matchRepository.findByGameModeOrderByScore(gameMode, Pageable.ofSize(size)).stream()
                 .map(MatchScoreBoardRecord::from)
+                .sorted(Comparator.comparingInt(MatchScoreBoardRecord::score).reversed())
                 .toList();
     }
 
