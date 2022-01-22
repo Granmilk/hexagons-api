@@ -15,6 +15,8 @@ import java.time.LocalDateTime;
 public class UserItem {
 
     @Id
+    @GeneratedValue(generator = "seq_user_item")
+    @SequenceGenerator(sequenceName = "user_item_id_seq", name = "seq_user_item", allocationSize = 1)
     @Column
     private Long id;
 
@@ -27,5 +29,5 @@ public class UserItem {
     private Item item;
 
     @Column
-    private LocalDateTime at;
+    private LocalDateTime registeredAt;
 }

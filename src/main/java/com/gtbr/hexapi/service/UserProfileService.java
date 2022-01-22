@@ -2,7 +2,9 @@ package com.gtbr.hexapi.service;
 
 import com.gtbr.hexapi.entity.UserProfile;
 import com.gtbr.hexapi.entity.enums.UserStatus;
+import com.gtbr.hexapi.enums.Operator;
 import com.gtbr.hexapi.exception.ObjectNotFoundException;
+import com.gtbr.hexapi.exception.UserAlreadyExistsException;
 import com.gtbr.hexapi.record.UserProfileRecord;
 import com.gtbr.hexapi.repository.UserProfileRepository;
 import com.gtbr.hexapi.util.QueryUtils;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -41,6 +44,9 @@ public class UserProfileService {
     }
 
     public UserProfile createUser(UserProfileRecord userProfileRecord) {
+        if (userProfileRepository.findByEmail(userProfileRecord.email()).isPresent())
+            throw new UserAlreadyExistsException();
+
         UserProfile user = userProfileRepository.save(UserProfile.builder()
                 .email(userProfileRecord.email())
                 .name(userProfileRecord.name())
@@ -82,10 +88,13 @@ public class UserProfileService {
         return userProfileRepository.save(user);
     }
 
-    public void addCoins(UUID userId, Long coins) {
+    public void updateCoins(UUID userId, Operator operator , Long coins) {
         UserProfile user = findUserById(userId);
-        user.setCoin(user.getCoin() + coins);
+        var value = Objects.equals(operator, Operator.MINUS)
+                ? user.getCoin()-coins
+                : user.getCoin()+coins;
 
+        user.setCoin(value);
         userProfileRepository.save(user);
     }
 }

@@ -29,6 +29,7 @@ public class Validator {
     }
 
     public static String createMatchValidator(UUID userId, Long coin, Long score, String gameMode, Integer difficulty) {
-        return crypt(userId + coin.toString() + score.toString() + gameMode + difficulty + VALIDATOR_TOKEN);
+        System.out.println(crypt(userId + score.toString() + gameMode + coin.toString() + difficulty + VALIDATOR_TOKEN));
+        return crypt(userId + score.toString() + gameMode + coin.toString() + difficulty + VALIDATOR_TOKEN);
     }
 }

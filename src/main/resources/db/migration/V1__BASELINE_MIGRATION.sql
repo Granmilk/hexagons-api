@@ -1,8 +1,6 @@
 create sequence if not exists seq_user_short_id
     as integer;
 
-create sequence if not exists item_item_id_seq;
-
 create sequence if not exists seq_match_short_id;
 
 create table if not exists user_profile
@@ -62,11 +60,16 @@ create table if not exists item
     value   bigint
 );
 
-alter sequence item_item_id_seq owned by item.item_id;
+INSERT INTO public.item (name, value) VALUES ('Verde', 50);
+INSERT INTO public.item (name, value) VALUES ('Roxo', 50);
+INSERT INTO public.item (name, value) VALUES ('Azul escuro', 50);
+INSERT INTO public.item (name, value) VALUES ('Cinza', 50);
+INSERT INTO public.item (name, value) VALUES ('Amarelo', 50);
+INSERT INTO public.item (name, value) VALUES ('SURTO NEON', 250);
 
 create table if not exists user_item
 (
-    id              bigint not null
+    id              bigserial
         constraint user_item_pkey
             primary key,
     registered_at   timestamp,

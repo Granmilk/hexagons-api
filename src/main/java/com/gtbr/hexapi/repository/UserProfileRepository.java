@@ -18,4 +18,6 @@ public interface UserProfileRepository extends CrudRepository<UserProfile, UUID>
 
         return null;
     }
+
+    Optional<UserProfile> findByEmail(String email);
 }

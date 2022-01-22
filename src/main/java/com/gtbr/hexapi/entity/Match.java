@@ -1,5 +1,6 @@
 package com.gtbr.hexapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -37,6 +38,7 @@ public class Match {
     private Long score;
 
     @Column(insertable = false)
+    @JsonFormat(pattern = "dd/MM/yyyy - HH:mm")
     private LocalDateTime registeredAt;
 
     @Column
@@ -50,4 +52,5 @@ public class Match {
 
     @Column
     private Boolean watchedAd;
+
 }

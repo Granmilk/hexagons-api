@@ -1,5 +1,6 @@
 package com.gtbr.hexapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import javax.persistence.Column;
@@ -22,8 +23,10 @@ public class Version {
     private String placeholder;
 
     @Column(insertable = false)
+    @JsonFormat(pattern = "dd/MM/yyyy - HH:mm")
     private LocalDateTime launchedAt;
 
     @Column(insertable = false)
+    @JsonFormat(pattern = "dd/MM/yyyy - HH:mm")
     private LocalDateTime endedAt;
 }

@@ -1,6 +1,5 @@
 package com.gtbr.hexapi.record;
 
-import com.gtbr.hexapi.entity.UserProfile;
 import com.gtbr.hexapi.entity.enums.UserStatus;
 
 import java.time.LocalDateTime;

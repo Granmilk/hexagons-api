@@ -3,3 +3,11 @@ spring:
     url: ${DATABASE_URL}
     username: ${DATABASE_USERNAME}
     password: ${DATABASE_PASSWORD}
+
+springdoc:
+  swagger-ui:
+    path: /swagger
+    operationsSorter: method
+  api-docs:
+    path: /api-docs
+

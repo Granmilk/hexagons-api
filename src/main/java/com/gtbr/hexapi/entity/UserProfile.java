@@ -1,10 +1,12 @@
 package com.gtbr.hexapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.gtbr.hexapi.entity.enums.UserStatus;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -30,6 +32,7 @@ public class UserProfile {
     private String name;
 
     @Column
+    @Email
     private String email;
 
     @Column
@@ -46,5 +49,6 @@ public class UserProfile {
     private Long coin;
 
     @Column(insertable = false)
+    @JsonFormat(pattern = "dd/MM/yyyy - HH:mm")
     private LocalDateTime registeredAt;
 }

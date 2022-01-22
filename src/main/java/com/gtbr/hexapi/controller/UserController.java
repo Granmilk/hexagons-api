@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.UUID;
@@ -34,7 +35,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserProfile> createUser(@RequestBody UserProfileRecord userProfileRecord) {
+    public ResponseEntity<UserProfile> createUser(@RequestBody @Valid UserProfileRecord userProfileRecord) {
         return ResponseEntity.created(URI.create("")).body(userProfileService.createUser(userProfileRecord));
     }
 
