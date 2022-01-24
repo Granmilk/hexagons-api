@@ -4,9 +4,9 @@ import com.gtbr.hexapi.entity.Version;
 import com.gtbr.hexapi.service.VersionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,4 +20,8 @@ public class VersionController {
         return ResponseEntity.ok(versionService.findActualVersion());
     }
 
+    @PatchMapping
+    public ResponseEntity<Version> updateVersion(@RequestBody Map<String, Boolean> versionParameter) {
+        return ResponseEntity.ok(versionService.updateVersion(versionParameter));
+    }
 }
