@@ -1,6 +1,7 @@
 package com.gtbr.hexapi.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gtbr.hexapi.entity.enums.UserStatus;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
@@ -36,6 +37,7 @@ public class UserProfile {
     private String email;
 
     @Column
+    @JsonIgnore
     private String password;
 
     @Column(insertable = false)

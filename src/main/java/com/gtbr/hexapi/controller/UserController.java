@@ -39,6 +39,11 @@ public class UserController {
         return ResponseEntity.created(URI.create("")).body(userProfileService.createUser(userProfileRecord));
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<UserProfile> login(@RequestBody @Valid UserProfileRecord userProfileRecord) {
+        return ResponseEntity.created(URI.create("")).body(userProfileService.login(userProfileRecord));
+    }
+
     @PatchMapping("/{userUUID}")
     public ResponseEntity<UserProfile> updateUser(@PathVariable UUID userUUID, @RequestBody UserProfileRecord userProfileRecord) {
         return ResponseEntity.accepted().body(userProfileService.updateUser(userUUID, userProfileRecord));

@@ -4,6 +4,7 @@ import com.gtbr.hexapi.entity.UserProfile;
 import com.gtbr.hexapi.entity.enums.UserStatus;
 import com.gtbr.hexapi.enums.Operator;
 import com.gtbr.hexapi.exception.ObjectNotFoundException;
+import com.gtbr.hexapi.exception.UnauthorizedException;
 import com.gtbr.hexapi.exception.UserAlreadyExistsException;
 import com.gtbr.hexapi.record.UserProfileRecord;
 import com.gtbr.hexapi.repository.UserProfileRepository;
@@ -96,5 +97,16 @@ public class UserProfileService {
 
         user.setCoin(value);
         userProfileRepository.save(user);
+    }
+
+    public UserProfile login(UserProfileRecord userProfileRecord) {
+        UserProfile userProfile = userProfileRepository.findByEmail(userProfileRecord.email()).orElseThrow(() -> {
+            throw new ObjectNotFoundException("E-mail not found", HttpStatus.NOT_FOUND);
+        });
+
+        if (bCryptPasswordEncoder.matches(userProfileRecord.password(), userProfile.getPassword()))
+            return userProfile;
+        else
+            throw new UnauthorizedException("Incorrect password");
     }
 }

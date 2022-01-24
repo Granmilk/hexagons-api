@@ -2,6 +2,7 @@ package com.gtbr.hexapi.controller;
 
 import com.gtbr.hexapi.exception.InvalidMatchException;
 import com.gtbr.hexapi.exception.ObjectNotFoundException;
+import com.gtbr.hexapi.exception.UnauthorizedException;
 import com.gtbr.hexapi.exception.UserAlreadyExistsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,5 +29,10 @@ public class ExceptionController {
     @ExceptionHandler(UserAlreadyExistsException.class)
     public ResponseEntity<String> emailAlreadyTaken(UserAlreadyExistsException userAlreadyExistsException) {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(userAlreadyExistsException.getMessage());
+    }
+
+    @ExceptionHandler(UnauthorizedException.class)
+    public ResponseEntity<String> unauthorizedException(UnauthorizedException unauthorizedException) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(unauthorizedException.getMessage());
     }
 }
