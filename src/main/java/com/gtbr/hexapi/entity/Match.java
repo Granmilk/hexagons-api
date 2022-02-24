@@ -6,6 +6,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.UUID;
 
 @Table
@@ -42,10 +43,23 @@ public class Match {
     private LocalDateTime registeredAt;
 
     @Column
+    @JsonFormat(pattern = "HH:mm")
+    private LocalTime duration;
+
+    @Column
     private Long coin;
 
     @Column
     private Integer lifeTaken;
+
+    @Column
+    private Integer guardianBuffCount;
+
+    @Column
+    private Integer guardianTotalSaves;
+
+    @Column
+    private Integer deathDebuffCount;
 
     @Column
     private Integer difficulty;
