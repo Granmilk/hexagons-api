@@ -20,8 +20,12 @@ public interface MatchRepository extends CrudRepository<Match, UUID> {
             "order by m.registeredAt DESC")
     List<Match> findByUserIdAnd(UUID userId, Pageable pageable);
 
-    @Query(value = "select distinct on(m.user_profile_id) m.* from match m " +
-            "where upper(m.game_mode_id) like upper(:gameMode) order by m.user_profile_id, m.score desc", nativeQuery = true)
+    @Query(value = "select ma.* " +
+            "from Match ma " +
+            "where ma.match_uuid in (select distinct on (m.user_profile_id) m.match_uuid " +
+            "                        from match m " +
+            "                        where upper(m.game_mode_id) like upper(:gameMode) " +
+            "                        order by m.user_profile_id, m.score DESC) order by ma.score DESC", nativeQuery = true)
     List<Match> findByGameModeOrderByScore(String gameMode, Pageable pageable);
 
     @Query("select m from Match m where m.userProfile.userUUID = :userId order by m.registeredAt DESC")
