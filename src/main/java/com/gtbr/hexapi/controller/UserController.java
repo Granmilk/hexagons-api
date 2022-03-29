@@ -1,5 +1,6 @@
 package com.gtbr.hexapi.controller;
 
+import com.gtbr.hexapi.config.security.TokenService;
 import com.gtbr.hexapi.entity.UserProfile;
 import com.gtbr.hexapi.record.UserProfileRecord;
 import com.gtbr.hexapi.service.UserProfileService;
@@ -18,6 +19,7 @@ import java.util.UUID;
 public class UserController {
 
     private final UserProfileService userProfileService;
+    private final TokenService tokenService;
 
     @GetMapping
     public ResponseEntity<List<UserProfile>> findAllUsers() {
@@ -41,7 +43,11 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<UserProfile> login(@RequestBody @Valid UserProfileRecord userProfileRecord) {
-        return ResponseEntity.created(URI.create("")).body(userProfileService.login(userProfileRecord));
+        UserProfile login = userProfileService.login(userProfileRecord);
+        return ResponseEntity
+                .created(URI.create(""))
+                .header("Authorization", tokenService.encode(login))
+                .body(login);
     }
 
     @PatchMapping("/{userUUID}")
